@@ -216,7 +216,7 @@ void ShapesScene::settingsChanged() {
             break;
         case SHAPE_SPECIAL_1:
             std::cout << "Switching to l-system" << std::endl;
-            m_shape = std::make_unique<SuperShroom>(param1, param2, param3, 1);
+            m_shape = std::make_unique<SuperShroom>(param1, param2, param3, MushroomType::MUSHROOM_CLASSIC);
             break;
         case SHAPE_SPECIAL_2:
             m_shape = std::make_unique<Mushroom>(param1, param2, param3);

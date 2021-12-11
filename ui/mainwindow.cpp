@@ -6,6 +6,7 @@
 #include "scenegraph/RayScene.h"
 #include "scenegraph/ShapesScene.h"
 #include "scenegraph/SceneviewScene.h"
+#include "scenegraph/MushroomScene.h"
 #include "camera/CamtransCamera.h"
 #include "CS123XmlSceneParser.h"
 #include <math.h>
@@ -236,6 +237,7 @@ void MainWindow::dataBind() {
     BIND(BoolBinding::bindCheckbox(ui->rayUseKDTree,             settings.useKDTree))
 
     // mushrooms
+    BIND(BoolBinding::bindCheckbox(ui->mushroomSceneEnabled, settings.mushroomSceneEnabled))
     BIND(IntBinding::bindTextbox(ui->numMushrooms, settings.numMushrooms))
     BIND(BoolBinding::bindCheckbox(ui->classicEnabled, settings.classicEnabled))
     BIND(BoolBinding::bindCheckbox(ui->bellEnabled, settings.bellEnabled))

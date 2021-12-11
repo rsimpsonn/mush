@@ -73,6 +73,7 @@ void Settings::loadSettingsOrDefaults() {
     useKDTree = s.value("useKDTree", true).toBool();
 
     // Mushroom
+    mushroomSceneEnabled = s.value("mushroomSceneENabled", false).toBool();
     numMushrooms = s.value("numMushrooms", 1).toInt();
     classicEnabled = s.value("classicEnabled", true).toBool();
     pancakeEnabled = s.value("pancakeEnabled", false).toBool();
@@ -147,11 +148,14 @@ void Settings::saveSettings() {
     s.setValue("pancakeEnabled", pancakeEnabled);
     s.setValue("maxMushComplexity", maxMushComplexity);
     s.setValue("minMushComplexity", minMushComplexity);
+    s.setValue("mushroomSceneEnabled", mushroomSceneEnabled);
 
     s.setValue("currentTab", currentTab);
 }
 
 int Settings::getSceneMode() {
+    if (this->mushroomSceneEnabled)
+        return SCENEMODE_MUSHROOMS;
     if (this->useSceneviewScene)
         return SCENEMODE_SCENEVIEW;
     else

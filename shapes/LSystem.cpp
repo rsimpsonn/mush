@@ -87,8 +87,6 @@ std::vector<std::tuple<Triangle, glm::mat4>> LSystem::getTriangles(int param1) {
         }
     }
 
-    std::cout << "finished" << std::endl;
-
     return out;
 }
 

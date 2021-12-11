@@ -54,6 +54,7 @@ protected:
 
     // Render geometry for Shapes and Sceneview.
     virtual void renderGeometry();
+    std::unique_ptr<Shape> m_shape;
 
 private:
     // Storage for private copies of the scene's light and material data. Note that these don't
@@ -69,7 +70,6 @@ private:
 
     glm::vec4 m_lightDirection = glm::normalize(glm::vec4(1.f, -1.f, -1.f, 0.f));
 
-    std::unique_ptr<Shape> m_shape;
     int m_previousShape;
 
     int m_width;

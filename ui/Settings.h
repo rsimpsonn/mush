@@ -56,13 +56,20 @@ enum UITab {
 // Enumeration values for the currently selected scene type
 enum SceneMode {
     SCENEMODE_SHAPES,
-    SCENEMODE_SCENEVIEW
+    SCENEMODE_SCENEVIEW,
+    SCENEMODE_MUSHROOMS
 };
 
 // Enumeration values for the currently selected camera type
 enum CameraMode {
     CAMERAMODE_ORBIT,
     CAMERAMODE_CAMTRANS
+};
+
+enum MushroomType {
+    MUSHROOM_CLASSIC,
+    MUSHROOM_BELL,
+    MUSHROOM_PANCAKE
 };
 
 /**
@@ -142,6 +149,7 @@ struct Settings {
     bool bellEnabled;
     int minMushComplexity;
     int maxMushComplexity;
+    bool mushroomSceneEnabled;
 
     int getSceneMode();
     int getCameraMode();

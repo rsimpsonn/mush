@@ -11,6 +11,7 @@
 #include "SceneviewScene.h"
 #include "Settings.h"
 #include "ShapesScene.h"
+#include "MushroomScene.h"
 
 #include <iostream>
 #include "gl/GLDebug.h"
@@ -104,6 +105,7 @@ void SupportCanvas3D::initializeOpenGLSettings() {
 void SupportCanvas3D::initializeScenes() {
     m_sceneviewScene = std::make_unique<SceneviewScene>();
     m_shapesScene = std::make_unique<ShapesScene>(width(), height());
+    m_mushroomScene = std::make_unique<MushroomScene>(width(), height());
 }
 
 void SupportCanvas3D::paintGL() {
@@ -135,6 +137,9 @@ void SupportCanvas3D::setSceneFromSettings() {
         case SCENEMODE_SCENEVIEW:
             setSceneToSceneview();
             break;
+        case SCENEMODE_MUSHROOMS:
+            setSceneToMushrooms();
+            break;
     }
     m_settingsDirty = false;
 }
@@ -153,6 +158,11 @@ void SupportCanvas3D::setSceneToSceneview() {
 void SupportCanvas3D::setSceneToShapes() {
     assert(m_shapesScene.get());
     m_currentScene = m_shapesScene.get();
+}
+
+void SupportCanvas3D::setSceneToMushrooms() {
+    assert(m_mushroomScene.get());
+    m_currentScene = m_mushroomScene.get();
 }
 
 void SupportCanvas3D::copyPixels(int width, int height, RGBA *data) {

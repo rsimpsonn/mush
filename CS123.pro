@@ -32,6 +32,7 @@ SOURCES += \
     camera/CamtransCamera.cpp \
     camera/QuaternionCamera.cpp \
     scenegraph/Frustum.cpp \
+    scenegraph/MushroomScene.cpp \
     scenegraph/Scene.cpp \
     scenegraph/OpenGLScene.cpp \
     scenegraph/ShapesScene.cpp \
@@ -44,6 +45,7 @@ SOURCES += \
     shapes/ExampleShape.cpp \
     shapes/LSystem.cpp \
     shapes/Mushroom.cpp \
+    shapes/MushroomForest.cpp \
     shapes/Mycelium.cpp \
     shapes/OpenGLShape.cpp \
     shapes/Rectangle.cpp \
@@ -91,6 +93,7 @@ HEADERS += \
     camera/CamtransCamera.h \
     camera/QuaternionCamera.h \
     scenegraph/Frustum.h \
+    scenegraph/MushroomScene.h \
     scenegraph/Scene.h \
     scenegraph/OpenGLScene.h \
     scenegraph/ShapesScene.h \
@@ -103,6 +106,7 @@ HEADERS += \
     shapes/ExampleShape.h \
     shapes/LSystem.h \
     shapes/Mushroom.h \
+    shapes/MushroomForest.h \
     shapes/Mycelium.h \
     shapes/OpenGLShape.h \
     shapes/Rectangle.h \

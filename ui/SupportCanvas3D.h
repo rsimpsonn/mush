@@ -13,6 +13,7 @@ class Camera;
 class OpenGLScene;
 class ShapesScene;
 class SceneviewScene;
+class MushroomScene;
 class OrbitingCamera;
 class CamtransCamera;
 class CS123XmlSceneParser;
@@ -97,6 +98,7 @@ private:
     void setSceneFromSettings();
     void setSceneToSceneview();
     void setSceneToShapes();
+    void setSceneToMushrooms();
 
 
     glm::vec4      m_cameraEye;
@@ -109,6 +111,7 @@ private:
     OpenGLScene *m_currentScene;
     std::unique_ptr<ShapesScene> m_shapesScene;
     std::unique_ptr<SceneviewScene> m_sceneviewScene;
+    std::unique_ptr<MushroomScene> m_mushroomScene;
 };
 
 #endif // SUPPORTCANVAS3D_H

@@ -4,15 +4,18 @@
 #include "Shape.h"
 #include "Mushroom.h"
 #include "Mycelium.h"
+#include "Settings.h"
 
 class SuperShroom : public Shape
 {
 public:
 
-    SuperShroom(int param1, int param2, int param3, int mushroomType);
+    SuperShroom(int param1, int param2, int param3, MushroomType mushroomType);
 
     SuperShroom();
     void tessellate(int param1, int param2, int param3);
+    std::vector<std::tuple<Triangle,glm::mat4>> getTriangles(int param1, int param2, int param3);
+    void runTessellation(std::vector<GLfloat> t);
 
 private:
     int m_mushroomType;

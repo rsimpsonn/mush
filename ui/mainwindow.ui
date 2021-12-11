@@ -2016,7 +2016,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>10</y>
+       <y>30</y>
        <width>221</width>
        <height>151</height>
       </rect>
@@ -2104,6 +2104,19 @@
        </rect>
       </property>
      </widget>
+    </widget>
+    <widget class="QCheckBox" name="mushroomSceneEnabled">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>221</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Enable mushroom forest</string>
+     </property>
     </widget>
    </widget>
   </widget>
