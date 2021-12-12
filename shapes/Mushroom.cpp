@@ -28,7 +28,7 @@ void Mushroom::makeUmbrellaShroom(int p1, int p2) {
         }
     }
 
-    for (float i=0; i<=1; i+=0.1f) {
+    for (float i=0; i<=1.01; i+=0.1f) {
         float newRadius = ((0.3f*-cos(3.75f*i))+1.4f) / 5.f;
         float yVal = -i;
         m_stemCircles.push_back(Circle(newRadius, glm::vec3(0,yVal,0), 1));

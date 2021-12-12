@@ -54,7 +54,7 @@ void MushroomScene::settingsChanged() {
     for (int i = 0; i < MAPLENGTH; i++) {
         for (int j = 0; j < MAPLENGTH; j++) {
             if (map[i * MAPLENGTH + j] > 0) {
-                std::vector<std::tuple<Triangle,glm::mat4>> tris = m_classic->getTriangles(map[i * MAPLENGTH + j], 5, 1);
+                std::vector<std::tuple<Triangle,glm::mat4>> tris = m_classic->getTriangles(map[i * MAPLENGTH + j], 8, 1);
                 for (int k = 0; k < tris.size(); k++) {
                     Triangle t;
                     glm::mat4 m;
