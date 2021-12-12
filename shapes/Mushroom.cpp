@@ -53,6 +53,7 @@ void Mushroom::makeBellShroom(int p1, int p2) {
         }
     }
 
+    // mushroom stem
     for (float i=-0.1f; i<=1.7f; i+=0.1f) {
         float newRadius = (0.02f*(-cos(-9.f*i)+0.2f))+0.05f;
         float yVal = -i;
@@ -78,6 +79,7 @@ void Mushroom::makePancakeShroom(int p1, int p2) {
         }
     }
 
+    // mushroom stem
     for (float i=-0.1f; i<=1.7f; i+=0.1f) {
         float newRadius = (0.1f*(-cos(-3.95f*i)+0.3f))+0.5f;
         float yVal = -i;

@@ -7,6 +7,7 @@
  */
 
 #include <algorithm>
+#include <math.h>
 
 #include "ConstantBrush.h"
 
