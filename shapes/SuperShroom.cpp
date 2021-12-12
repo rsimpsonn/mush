@@ -52,7 +52,7 @@ std::vector<std::tuple<Triangle,glm::mat4>> SuperShroom::getTriangles(int param1
 
 
     for (int i = 0; i < mushTris.size(); i++) {
-        out.push_back(std::make_tuple(mushTris[i],  glm::translate(glm::vec3{0, pow(1.8,param1 - 1), 0}) * glm::scale(glm::vec3{pow(1.8,param1 - 1), pow(1.8,param1 - 1),pow(1.8,param1 - 1)})));
+        out.push_back(std::make_tuple(mushTris[i],  glm::translate(glm::vec3{0, pow(2,param1 - 1), 0}) * glm::scale(glm::vec3{pow(2,param1 - 1), pow(2,param1 - 1),pow(2,param1 - 1)})));
     }
 
     for (int i = 0; i < mycTris.size(); i++) {
@@ -61,7 +61,7 @@ std::vector<std::tuple<Triangle,glm::mat4>> SuperShroom::getTriangles(int param1
         std::tie(t, m) = mycTris[i];
 
         //std::cout << glm::to_string(m) << std::endl;
-        out.push_back(std::make_tuple(t, m));
+        out.push_back(std::make_tuple(t, glm::scale(glm::vec3{2, 2, 2}) * glm::translate(glm::vec3{0, param1/2, 0}) * m));
     }
 
     return out;
