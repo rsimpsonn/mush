@@ -44,14 +44,37 @@ ShapesScene::~ShapesScene()
 }
 
 void ShapesScene::initializeSceneMaterial() {
-    // Use a shiny orange material
+    // PINK
     m_material.clear();
     m_material.cAmbient.r = 0.2f;
-    m_material.cAmbient.g = 0.1f;
+    m_material.cAmbient.g = 0.0f;
+    m_material.cAmbient.b = 0.9f;
     m_material.cDiffuse.r = 1.0f;
     m_material.cDiffuse.g = 0.5f;
     m_material.cSpecular.r = m_material.cSpecular.g = m_material.cSpecular.b = 1;
-    m_material.shininess = 64;
+    m_material.shininess = 100;
+
+    // BLUE
+//    m_material.clear();
+//    m_material.cAmbient.r = 0.0f;
+//    m_material.cAmbient.g = 0.3f;
+//    m_material.cAmbient.b = 0.7f;
+//    m_material.cDiffuse.r = 0.1f;
+//    m_material.cDiffuse.g = 0.7f;
+//    m_material.cDiffuse.b = 0.2f;
+//    m_material.cSpecular.r = m_material.cSpecular.g = m_material.cSpecular.b = 1;
+//    m_material.shininess = 20;
+
+    // ORANGE
+//    m_material.clear();
+//    m_material.cAmbient.r = 0.7f;
+//    m_material.cAmbient.g = 0.4f;
+//    m_material.cAmbient.b = 0.1f;
+//    m_material.cDiffuse.r = 0.3f;
+//    m_material.cDiffuse.g = 0.0f;
+//    m_material.cDiffuse.b = 0.0f;
+//    m_material.cSpecular.r = m_material.cSpecular.g = m_material.cSpecular.b = 1;
+//    m_material.shininess = 20;
 }
 
 void ShapesScene::initializeSceneLight() {
@@ -106,6 +129,9 @@ void ShapesScene::render(SupportCanvas3D *context) {
 }
 
 void ShapesScene::renderPhongPass(SupportCanvas3D *context) {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     m_phongShader->bind();
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
