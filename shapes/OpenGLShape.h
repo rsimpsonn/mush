@@ -30,6 +30,9 @@ public:
     OpenGLShape();
     virtual ~OpenGLShape();
     void draw();
+    void initializeOpenGLShapeProperties();
+
+    std::vector<GLfloat> m_vertexData;
 
 protected:
     /**
@@ -37,9 +40,6 @@ protected:
      * don't worry about what exactly this function is doing, you'll learn more about that later in the course!
      * look at ExampleShape.cpp for it's demonstrated usage
      */
-    void initializeOpenGLShapeProperties();
-
-    std::vector<GLfloat> m_vertexData;
     std::unique_ptr<CS123::GL::VAO> m_VAO;
 };
 

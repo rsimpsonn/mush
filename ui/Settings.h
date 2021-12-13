@@ -72,6 +72,13 @@ enum MushroomType {
     MUSHROOM_PANCAKE
 };
 
+enum MushroomSceneType {
+    MUSHROOM_STEM,
+    MUSHROOM_GILLS,
+    MUSHROOM_MYCELIUM,
+    MUSHROOM_TOP
+};
+
 /**
  * @struct Settings
  *

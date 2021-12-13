@@ -65,7 +65,7 @@ void Mycelium::tessellate(int param1, int param2, int param3) {
 
             LSystem r = LSystem(param1,
                                 glm::rotate(glm::radians(180.f), glm::normalize(glm::vec3{1, 0, 1})) * glm::rotate(curr, glm::vec3{0, 1, 0}) * glm::translate(glm::vec3{0, 0, 0.1}),
-                                std::map<const char, std::string>{{'F', "FF"}, {'X', "FF[R-X][R+X][FF[-X[+FX]]-F[-X]][R-FX]+X"}},
+                                std::map<const char, std::string>{{'F', "FF"}, {'X', "FF[FF[-X[+FX]]][R-FX]+X"}},
                                 25.f);
 
             std::vector<std::tuple<Triangle,glm::mat4>> trisR = r.getTriangles(param1);

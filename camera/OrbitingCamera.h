@@ -17,7 +17,7 @@
  */
 class OrbitingCamera : public Camera {
 public:
-    OrbitingCamera() : m_aspectRatio(1), m_angleX(0), m_angleY(0), m_zoomZ(-5) {}
+    OrbitingCamera() : m_aspectRatio(1), m_angleX(0), m_angleY(0), m_zoomZ(-25) {}
     ~OrbitingCamera() {}
 
     virtual void setAspectRatio(float aspectRatio);

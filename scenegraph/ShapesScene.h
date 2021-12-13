@@ -55,12 +55,12 @@ protected:
     // Render geometry for Shapes and Sceneview.
     virtual void renderGeometry();
     std::unique_ptr<Shape> m_shape;
+    std::unique_ptr<CS123::GL::CS123Shader> m_phongShader;
 
 private:
     // Storage for private copies of the scene's light and material data. Note that these don't
     // need to be freed because they are VALUE types (not pointers) and the memory for them is
     // freed when the class itself is freed.
-    std::unique_ptr<CS123::GL::CS123Shader> m_phongShader;
     std::unique_ptr<CS123::GL::Shader> m_wireframeShader;
     std::unique_ptr<CS123::GL::Shader> m_normalsShader;
     std::unique_ptr<CS123::GL::Shader> m_normalsArrowShader;

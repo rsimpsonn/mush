@@ -218,6 +218,74 @@ std::vector<Triangle> Mushroom::getTriangles(int parameter1, int parameter2, int
     return out;
 }
 
+std::tuple<std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>> Mushroom::getAll(int parameter1, int parameter2, int parameter3) {
+    if (parameter2 < 3) {
+        parameter2 =10;
+    }
+
+    if (parameter1 < 2) {
+        parameter1 = 15;
+    }
+
+    switch (parameter3) {
+
+        case 1:
+            makeUmbrellaShroom(parameter1, parameter2);
+        break;
+    default:
+        makeUmbrellaShroom(parameter1, parameter2);
+//        case 2:
+//            makeBellShroom(parameter1, parameter2);
+//        case 3:
+//            makePancakeShroom(parameter1, parameter2);
+
+    }
+
+    float interval = float(2.0f*M_PI)/parameter2;
+
+    std::vector<Triangle> top;
+    std::vector<Triangle> gills;
+    std::vector<Triangle> stem;
+
+    // connect circles of mushroom top
+    for (float i=0; i<(2.0f*M_PI); i+=interval) {
+        for (int j=1; j<m_topCircles.size(); j++) {
+            glm::vec3 currentCircle1 = glm::vec3(m_topCircles[j].getRadius()*cos(i), m_topCircles[j].getYVal(), -m_topCircles[j].getRadius()*sin(i));
+            glm::vec3 currentCircle2 = glm::vec3(m_topCircles[j].getRadius()*cos(i+interval), m_topCircles[j].getYVal(), -m_topCircles[j].getRadius()*sin(i+interval));
+            glm::vec3 prevCircle1 = glm::vec3(m_topCircles[j-1].getRadius()*cos(i), m_topCircles[j-1].getYVal(), -m_topCircles[j-1].getRadius()*sin(i));
+            glm::vec3 prevCircle2 = glm::vec3(m_topCircles[j-1].getRadius()*cos(i+interval), m_topCircles[j-1].getYVal(), -m_topCircles[j-1].getRadius()*sin(i+interval));
+            Triangle tri1 = Triangle(currentCircle1,prevCircle1,currentCircle2);
+            top.push_back(tri1);
+            Triangle tri2 = Triangle(currentCircle2,prevCircle1,prevCircle2);
+            top.push_back(tri2);
+            if (j == m_topCircles.size()-1) {
+                Triangle gill = Triangle(currentCircle2,glm::vec3(0,0,0),currentCircle1);
+                gills.push_back(gill);
+            }
+        }
+    }
+
+    // connect circles of mushroom stem
+    for (float i=0; i<(2.0f*M_PI); i+=interval) {
+        for (int j=0; j<m_stemCircles.size(); j++) {
+            glm::vec3 currentCircle1 = glm::vec3(m_stemCircles[j].getRadius()*cos(i), m_stemCircles[j].getYVal(), -m_stemCircles[j].getRadius()*sin(i));
+            glm::vec3 currentCircle2 = glm::vec3(m_stemCircles[j].getRadius()*cos(i+interval), m_stemCircles[j].getYVal(), -m_stemCircles[j].getRadius()*sin(i+interval));
+            glm::vec3 prevCircle1 = glm::vec3(m_stemCircles[j-1].getRadius()*cos(i), m_stemCircles[j-1].getYVal(), -m_stemCircles[j-1].getRadius()*sin(i));
+            glm::vec3 prevCircle2 = glm::vec3(m_stemCircles[j-1].getRadius()*cos(i+interval), m_stemCircles[j-1].getYVal(), -m_stemCircles[j-1].getRadius()*sin(i+interval));
+            Triangle tri1 = Triangle(currentCircle1,prevCircle1,currentCircle2);
+//            std::vector<glm::vec3> tri1Points = tri1.getCurvedTriangle({glm::vec3(0,-(0.1f*j),0), glm::vec3(0,-(0.1f*j),0), glm::vec3(0,-(0.1f*j),0)});
+            stem.push_back(tri1);
+            Triangle tri2 = Triangle(currentCircle2,prevCircle1, prevCircle2);
+//            std::vector<glm::vec3> tri2Points = tri2.getCurvedTriangle({glm::vec3(0,-(0.1f*j),0), glm::vec3(0,-(0.1f*j),0), glm::vec3(0,-(0.1f*j),0)});
+            stem.push_back(tri2);
+
+        }
+    }
+
+
+    return std::make_tuple(top, gills, stem);
+}
+
 Mushroom::~Mushroom()
 {
 }
