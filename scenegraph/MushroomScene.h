@@ -43,7 +43,7 @@ private:
     std::unique_ptr<SuperShroom> m_classic;
     std::unique_ptr<SuperShroom> m_bell;
     std::unique_ptr<SuperShroom> m_pancake;
-    std::vector<std::tuple<std::vector<GLfloat>,MushroomSceneType,glm::mat4>> m_objects;
+    std::vector<std::tuple<std::vector<GLfloat>,MushroomSceneType,glm::mat4,ColorScheme>> m_objects;
     void generateMap(int n, int r, int min, float dropoff, std::vector<float> &map);
     bool validBlock(int n, int i, std::vector<float> &map);
     void fillBlock(int n, int i, std::vector<float> &map);

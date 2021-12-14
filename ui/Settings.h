@@ -22,6 +22,12 @@ enum BrushType {
     NUM_BRUSH_TYPES
 };
 
+enum ColorScheme {
+    PINK,
+    ORANGE,
+    YELLOW
+};
+
 // Enumeration values for the Filters that the user can select in the GUI.
 enum FilterType {
     FILTER_EDGE_DETECT,

@@ -10,7 +10,6 @@ Mushroom::Mushroom(int parameter1, int parameter2, int mushroomType):
     m_topCircles(std::vector<Circle>()),
     m_stemCircles(std::vector<Circle>())
 {
-    // adjust parameters so it looks normal
 
 }
 
@@ -19,6 +18,7 @@ void Mushroom::makeUmbrellaShroom(int p1, int p2) {
     float thetaInterval = M_PI/(float)p1;
 
     for (float i=0; i<=2 * M_PI; i+=thetaInterval) {
+
         float currentTheta = (M_PI/2.0f) - i;
         float newRadius = abs(1.f*cos(currentTheta));
         float yVal = 1.f*sin(currentTheta);
@@ -89,12 +89,14 @@ void Mushroom::makePancakeShroom(int p1, int p2) {
 }
 
 void Mushroom::tessellate(int parameter1, int parameter2, int parameter3) {
+
+    // adjust parameters so it looks normal
     if (parameter2 < 3) {
-        parameter2 =10;
+        parameter2 = 15;
     }
 
     if (parameter1 < 2) {
-        parameter1 = 15;
+        parameter1 = 30;
     }
 
     switch (parameter3) {
@@ -153,12 +155,14 @@ void Mushroom::tessellate(int parameter1, int parameter2, int parameter3) {
 }
 
 std::vector<Triangle> Mushroom::getTriangles(int parameter1, int parameter2, int parameter3) {
+
+    // adjust parameters so it looks normal
     if (parameter2 < 3) {
-        parameter2 =10;
+        parameter2 = 15;
     }
 
     if (parameter1 < 2) {
-        parameter1 = 15;
+        parameter1 = 30;
     }
 
     switch (parameter3) {
@@ -166,8 +170,8 @@ std::vector<Triangle> Mushroom::getTriangles(int parameter1, int parameter2, int
         case 1:
             makeUmbrellaShroom(parameter1, parameter2);
         break;
-    default:
-        makeUmbrellaShroom(parameter1, parameter2);
+        default:
+            makeUmbrellaShroom(parameter1, parameter2);
 //        case 2:
 //            makeBellShroom(parameter1, parameter2);
 //        case 3:
@@ -180,7 +184,7 @@ std::vector<Triangle> Mushroom::getTriangles(int parameter1, int parameter2, int
     std::vector<Triangle> out;
 
     // connect circles of mushroom top
-    for (float i=0; i<(2.0f*M_PI); i+=interval) {
+    for (float i=0.f; i<(2.0f*(float)M_PI); i+=interval) {
         for (int j=1; j<m_topCircles.size(); j++) {
             glm::vec3 currentCircle1 = glm::vec3(m_topCircles[j].getRadius()*cos(i), m_topCircles[j].getYVal(), -m_topCircles[j].getRadius()*sin(i));
             glm::vec3 currentCircle2 = glm::vec3(m_topCircles[j].getRadius()*cos(i+interval), m_topCircles[j].getYVal(), -m_topCircles[j].getRadius()*sin(i+interval));
@@ -232,8 +236,8 @@ std::tuple<std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>> 
         case 1:
             makeUmbrellaShroom(parameter1, parameter2);
         break;
-    default:
-        makeUmbrellaShroom(parameter1, parameter2);
+        default:
+            makeUmbrellaShroom(parameter1, parameter2);
 //        case 2:
 //            makeBellShroom(parameter1, parameter2);
 //        case 3:

@@ -64,10 +64,31 @@ void MushroomScene::settingsChanged() {
                 glm::mat4 mushT;
                 std::tie(mushTop, mushGills, mushStem, myc, mushT) = m_classic->getBoth(map[i * MAPLENGTH + j], 8, glm::translate(glm::vec3{i - float(MAPLENGTH) / 2, -1.f, -j}));
 
-                m_objects.push_back(std::make_tuple(mushTop,MushroomSceneType::MUSHROOM_TOP,mushT));
-                m_objects.push_back(std::make_tuple(mushGills,MushroomSceneType::MUSHROOM_GILLS,mushT));
-                m_objects.push_back(std::make_tuple(mushStem,MushroomSceneType::MUSHROOM_STEM,mushT));
-                m_objects.push_back(std::make_tuple(myc,MushroomSceneType::MUSHROOM_MYCELIUM,glm::mat4()));
+                int rand = arc4random()%3;
+//                std::cout << rand << std::endl;
+
+                switch (rand) {
+                    case 0:
+                        m_objects.push_back(std::make_tuple(mushTop,MushroomSceneType::MUSHROOM_TOP,mushT,ColorScheme::PINK));
+                        m_objects.push_back(std::make_tuple(mushGills,MushroomSceneType::MUSHROOM_GILLS,mushT,ColorScheme::PINK));
+                        m_objects.push_back(std::make_tuple(mushStem,MushroomSceneType::MUSHROOM_STEM,mushT,ColorScheme::PINK));
+                        m_objects.push_back(std::make_tuple(myc,MushroomSceneType::MUSHROOM_MYCELIUM,glm::mat4(),ColorScheme::PINK));
+                        break;
+                    case 1:
+                        m_objects.push_back(std::make_tuple(mushTop,MushroomSceneType::MUSHROOM_TOP,mushT,ColorScheme::ORANGE));
+                        m_objects.push_back(std::make_tuple(mushGills,MushroomSceneType::MUSHROOM_GILLS,mushT,ColorScheme::ORANGE));
+                        m_objects.push_back(std::make_tuple(mushStem,MushroomSceneType::MUSHROOM_STEM,mushT,ColorScheme::ORANGE));
+                        m_objects.push_back(std::make_tuple(myc,MushroomSceneType::MUSHROOM_MYCELIUM,glm::mat4(),ColorScheme::ORANGE));
+                        break;
+                    case 2:
+                        m_objects.push_back(std::make_tuple(mushTop,MushroomSceneType::MUSHROOM_TOP,mushT,ColorScheme::YELLOW));
+                        m_objects.push_back(std::make_tuple(mushGills,MushroomSceneType::MUSHROOM_GILLS,mushT,ColorScheme::YELLOW));
+                        m_objects.push_back(std::make_tuple(mushStem,MushroomSceneType::MUSHROOM_STEM,mushT,ColorScheme::YELLOW));
+                        m_objects.push_back(std::make_tuple(myc,MushroomSceneType::MUSHROOM_MYCELIUM,glm::mat4(),ColorScheme::YELLOW));
+                        break;
+                }
+
+
             }
         }
     }
@@ -78,58 +99,204 @@ void MushroomScene::settingsChanged() {
 void MushroomScene::renderGeometry() {
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    CS123SceneMaterial m0 = CS123SceneMaterial();
-    m0.clear();
-    m0.cAmbient.r = 0.75f;
-    m0.cAmbient.g = 0.9f;
-    m0.cAmbient.b = 0.85f;
-    m0.cDiffuse.r = 0.4f;
-    m0.cDiffuse.g = 0.9f;
-    m0.cSpecular.r = m0.cSpecular.g = m0.cSpecular.b = 1;
-    m0.shininess = 100;
+    // PINK COLOR SCHEME
+    CS123SceneMaterial pink = CS123SceneMaterial();
+    pink.clear();
+    pink.cAmbient.r = 0.2f;
+    pink.cAmbient.g = 0.0f;
+    pink.cAmbient.b = 0.7f;
+    pink.cDiffuse.r = 0.7f;
+    pink.cDiffuse.g = 0.1f;
+    pink.cDiffuse.b = 0.0f;
+    pink.cSpecular.r = pink.cSpecular.g = pink.cSpecular.b = 1;
+    pink.shininess = 100;
 
+    CS123SceneMaterial pinkStem = CS123SceneMaterial();
+    pinkStem.clear();
+    pinkStem.cAmbient.r = 0.2f;
+    pinkStem.cAmbient.g = 0.0f;
+    pinkStem.cAmbient.b = 0.9f;
+    pinkStem.cDiffuse.r = 1.0f;
+    pinkStem.cDiffuse.g = 0.5f;
+    pinkStem.cSpecular.r = pinkStem.cSpecular.g = pinkStem.cSpecular.b = 1;
+    pinkStem.shininess = 100;
 
-    CS123SceneMaterial m1 = CS123SceneMaterial();
-    m1.clear();
-    m1.cAmbient.r = 0.9f;
-    m1.cAmbient.g = 0.0f;
-    m1.cAmbient.b = 0.9f;
-    m1.cDiffuse.r = 1.0f;
-    m1.cDiffuse.g = 0.5f;
-    m1.cSpecular.r = m1.cSpecular.g = m1.cSpecular.b = 1;
-    m1.shininess = 100;
+    CS123SceneMaterial pinkGills = CS123SceneMaterial();
+    pinkGills.clear();
+    pinkGills.cAmbient.r = 0.2f;
+    pinkGills.cAmbient.g = 0.0f;
+    pinkGills.cAmbient.b = 0.7f;
+    pinkGills.cDiffuse.r = 1.0f;
+    pinkGills.cDiffuse.g = 0.2f;
+    pinkGills.cDiffuse.b = 0.5f;
+    pinkGills.cSpecular.r = pinkGills.cSpecular.g = pinkGills.cSpecular.b = 1;
+    pinkGills.shininess = 100;
 
-    CS123SceneMaterial m3 = CS123SceneMaterial();
-    m3.clear();
-    m3.cAmbient.r = 0.8f;
-    m3.cAmbient.g = 0.4f;
-    m3.cAmbient.b = 0.9f;
-    m3.cDiffuse.r = 1.0f;
-    m3.cDiffuse.g = 0.5f;
-    m3.cSpecular.r = m3.cSpecular.g = m3.cSpecular.b = 1;
-    m3.shininess = 100;
+    CS123SceneMaterial greenMyc = CS123SceneMaterial();
+    greenMyc.clear();
+    greenMyc.cAmbient.r = 0.2f;
+    greenMyc.cAmbient.g = 0.7f;
+    greenMyc.cAmbient.b = 0.4f;
+    greenMyc.cDiffuse.r = 0.2f;
+    greenMyc.cDiffuse.g = 0.7f;
+    greenMyc.cDiffuse.b = 0.2f;
+    greenMyc.cSpecular.r = greenMyc.cSpecular.g = greenMyc.cSpecular.b = 1;
+    greenMyc.shininess = 100;
+
+    // ORANGE COLOR SCHEME
+    CS123SceneMaterial orangeGills = CS123SceneMaterial();
+    orangeGills.clear();
+    orangeGills.cAmbient.r = 0.9f;
+    orangeGills.cAmbient.g = 0.2f;
+    orangeGills.cAmbient.b = 0.0f;
+    orangeGills.cDiffuse.r = 0.5f;
+    orangeGills.cDiffuse.g = 0.0f;
+    orangeGills.cDiffuse.b = 0.0f;
+    orangeGills.cSpecular.r = orangeGills.cSpecular.g = orangeGills.cSpecular.b = 1;
+    orangeGills.shininess = 100;
+
+    CS123SceneMaterial orange = CS123SceneMaterial();
+    orange.clear();
+    orange.cAmbient.r = 0.9f;
+    orange.cAmbient.g = 0.2f;
+    orange.cAmbient.b = 0.0f;
+    orange.cDiffuse.r = 0.4f;
+    orange.cDiffuse.g = 0.2f;
+    orange.cDiffuse.b = 0.0f;
+    orange.cSpecular.r = orange.cSpecular.g = orange.cSpecular.b = 1;
+    orange.shininess = 100;
+
+    CS123SceneMaterial orangeStem = CS123SceneMaterial();
+    orangeStem.clear();
+    orangeStem.cAmbient.r = 1.0f;
+    orangeStem.cAmbient.g = 0.5f;
+    orangeStem.cAmbient.b = 0.0f;
+    orangeStem.cDiffuse.r = 0.7f;
+    orangeStem.cDiffuse.g = 0.2f;
+    orangeStem.cDiffuse.b = 0.0f;
+    orangeStem.cSpecular.r = orangeStem.cSpecular.g = orangeStem.cSpecular.b = 1;
+    orangeStem.shininess = 100;
+
+    CS123SceneMaterial blueMyc = CS123SceneMaterial();
+    blueMyc.clear();
+    blueMyc.cAmbient.r = 0.2f;
+    blueMyc.cAmbient.g = 0.7f;
+    blueMyc.cAmbient.b = 0.9f;
+    blueMyc.cDiffuse.r = 0.2f;
+    blueMyc.cDiffuse.g = 0.7f;
+    blueMyc.cDiffuse.b = 0.5f;
+    blueMyc.cSpecular.r = blueMyc.cSpecular.g = blueMyc.cSpecular.b = 1;
+    blueMyc.shininess = 100;
+
+    // YELLOW COLOR SCHEME
+    CS123SceneMaterial yellow = CS123SceneMaterial();
+    yellow.clear();
+    yellow.cAmbient.r = 0.5f;
+    yellow.cAmbient.g = 0.9f;
+    yellow.cAmbient.b = 0.3f;
+    yellow.cDiffuse.r = 0.5f;
+    yellow.cDiffuse.g = 0.9f;
+    yellow.cDiffuse.b = 0.0f;
+    yellow.cSpecular.r = yellow.cSpecular.g = yellow.cSpecular.b = 1;
+    yellow.shininess = 100;
+
+    CS123SceneMaterial yellowStem = CS123SceneMaterial();
+    yellowStem.clear();
+    yellowStem.cAmbient.r = 0.8f;
+    yellowStem.cAmbient.g = 0.9f;
+    yellowStem.cAmbient.b = 0.0f;
+    yellowStem.cDiffuse.r = 0.4f;
+    yellowStem.cDiffuse.g = 0.4f;
+    yellowStem.cDiffuse.b = 0.4f;
+    yellowStem.cSpecular.r = yellowStem.cSpecular.g = yellowStem.cSpecular.b = 1;
+    yellowStem.shininess = 100;
+
+    CS123SceneMaterial yellowGills = CS123SceneMaterial();
+    yellowGills.clear();
+    yellowGills.cAmbient.r = 0.1f;
+    yellowGills.cAmbient.g = 0.9f;
+    yellowGills.cAmbient.b = 0.3f;
+    yellowGills.cDiffuse.r = 0.1f;
+    yellowGills.cDiffuse.g = 0.9f;
+    yellowGills.cDiffuse.b = 0.0f;
+    yellowGills.cSpecular.r = yellowGills.cSpecular.g = yellowGills.cSpecular.b = 1;
+    yellowGills.shininess = 100;
+
+    CS123SceneMaterial purpleMyc = CS123SceneMaterial();
+    purpleMyc.clear();
+    purpleMyc.cAmbient.r = 0.4f;
+    purpleMyc.cAmbient.g = 0.0f;
+    purpleMyc.cAmbient.b = 0.9f;
+    purpleMyc.cDiffuse.r = 0.4f;
+    purpleMyc.cDiffuse.g = 0.0f;
+    purpleMyc.cDiffuse.b = 0.9f;
+    purpleMyc.cSpecular.r = purpleMyc.cSpecular.g = purpleMyc.cSpecular.b = 1;
+    purpleMyc.shininess = 100;
 
     for (int i = 0; i < m_objects.size(); i++) {
         std::vector<GLfloat> f;
         MushroomSceneType m;
         glm::mat4 t;
-        std::tie(f, m, t) = m_objects[i];
+        ColorScheme c;
+        std::tie(f, m, t, c) = m_objects[i];
 
-        switch (m) {
-        case MushroomSceneType::MUSHROOM_TOP:
-            m_phongShader->applyMaterial(m1);
-            //m_phongShader->setUniform("m", t);
-            break;
-        case MushroomSceneType::MUSHROOM_MYCELIUM:
-            m_phongShader->applyMaterial(m0);
-            break;
-        case MushroomSceneType::MUSHROOM_STEM:
-            m_phongShader->applyMaterial(m3);
-            break;
-        case MushroomSceneType::MUSHROOM_GILLS:
-            m_phongShader->applyMaterial(m3);
-            break;
+        switch (c) {
+            case ColorScheme::PINK:
+//                std::cout << "pink" << std::endl;
+                switch (m) {
+                    case MushroomSceneType::MUSHROOM_TOP:
+                        m_phongShader->applyMaterial(pink);
+                        //m_phongShader->setUniform("m", t);
+                        break;
+                    case MushroomSceneType::MUSHROOM_MYCELIUM:
+                        m_phongShader->applyMaterial(greenMyc);
+                        break;
+                    case MushroomSceneType::MUSHROOM_STEM:
+                        m_phongShader->applyMaterial(pinkStem);
+                        break;
+                    case MushroomSceneType::MUSHROOM_GILLS:
+                        m_phongShader->applyMaterial(pinkGills);
+                        break;
+                }
+                break;
+            case ColorScheme::ORANGE:
+//                std::cout << "orange" << std::endl;
+                switch (m) {
+                    case MushroomSceneType::MUSHROOM_TOP:
+                        m_phongShader->applyMaterial(orange);
+                        //m_phongShader->setUniform("m", t);
+                        break;
+                    case MushroomSceneType::MUSHROOM_MYCELIUM:
+                        m_phongShader->applyMaterial(blueMyc);
+                        break;
+                    case MushroomSceneType::MUSHROOM_STEM:
+                        m_phongShader->applyMaterial(orangeStem);
+                        break;
+                    case MushroomSceneType::MUSHROOM_GILLS:
+                        m_phongShader->applyMaterial(orangeGills);
+                        break;
+                }
+                break;
+            case ColorScheme::YELLOW:
+//                std::cout << "yellow" << std::endl;
+                switch (m) {
+                    case MushroomSceneType::MUSHROOM_TOP:
+                        m_phongShader->applyMaterial(yellow);
+                        //m_phongShader->setUniform("m", t);
+                        break;
+                    case MushroomSceneType::MUSHROOM_MYCELIUM:
+                        m_phongShader->applyMaterial(purpleMyc);
+                        break;
+                    case MushroomSceneType::MUSHROOM_STEM:
+                        m_phongShader->applyMaterial(yellowStem);
+                        break;
+                    case MushroomSceneType::MUSHROOM_GILLS:
+                        m_phongShader->applyMaterial(yellowGills);
+                        break;
+                }
+                break;
         }
+
 
         m_shape = std::make_unique<MushroomForest>(f);
         m_shape->tessellate(0, 0, 0);
