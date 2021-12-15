@@ -46,18 +46,21 @@ void SuperShroom::tessellate(int param1, int param2, int param3) {
     initializeOpenGLShapeProperties();
 }
 
-std::tuple<std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, glm::mat4> SuperShroom::getBoth(int param1, int param2, glm::mat4 transl) {
+std::tuple<std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, glm::mat4> SuperShroom::getBoth(int param1, int param2, glm::mat4 transl) {
     std::vector<Triangle> top;
     std::vector<Triangle> gills;
+    std::vector<Triangle> gillLines;
     std::vector<Triangle> stem;
-    std::tie(top, gills, stem) = m_mushroom->getAll(1, param2, 1);
+    float randomRotation = arc4random()%90;
+    std::tie(top, gills, gillLines, stem) = m_mushroom->getAll(1, param2, 1);
     std::vector<std::tuple<Triangle, glm::mat4>> mycTris = m_mycelium->getTriangles(param1, param2, 1);
     std::vector<GLfloat> mushTopTessellation;
     std::vector<GLfloat> mushGillsTessellation;
+    std::vector<GLfloat> mushGillLinesTessellation;
     std::vector<GLfloat> mushStemTessellation;
     std::vector<GLfloat> mycTessellation;
     float f = 3802794 + (1.11753 - 3802794)/(1 + (pow(float(param1)/141.2069, 3.71)));
-    glm::mat4 mushTransformation = transl * glm::translate(glm::vec3{0, f, 0}) * glm::scale(glm::vec3{f, f,f});
+    glm::mat4 mushTransformation = transl * glm::rotate(glm::radians(randomRotation), glm::vec3(0.f,1.f,0.f)) * glm::translate(glm::vec3{0, f, 0}) * glm::scale(glm::vec3{f, f,f});
 
     for (int i = 0; i < top.size(); i++) {
         top[i].addToVector(&mushTopTessellation, mushTransformation);
@@ -65,6 +68,10 @@ std::tuple<std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, std
 
     for (int i = 0; i < gills.size(); i++) {
         gills[i].addToVector(&mushGillsTessellation, mushTransformation);
+    }
+
+    for (int i = 0; i < gillLines.size(); i++) {
+        gillLines[i].addToVector(&mushGillLinesTessellation, mushTransformation);
     }
 
     for (int i = 0; i < stem.size(); i++) {
@@ -80,7 +87,7 @@ std::tuple<std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, std
         t.addToVector(&mycTessellation, transl * glm::scale(glm::vec3{2, 2, 2}) * glm::translate(glm::vec3{0, param1 > 1 ? param1/2 * pow(param1/2.2, 2)/2.3 : 0.3, 0}) * m);
     }
 
-    return std::make_tuple(mushTopTessellation, mushGillsTessellation, mushStemTessellation, mycTessellation, mushTransformation);
+    return std::make_tuple(mushTopTessellation, mushGillsTessellation, mushGillLinesTessellation, mushStemTessellation, mycTessellation, mushTransformation);
 }
 
 

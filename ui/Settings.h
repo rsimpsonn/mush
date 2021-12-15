@@ -81,6 +81,7 @@ enum MushroomType {
 enum MushroomSceneType {
     MUSHROOM_STEM,
     MUSHROOM_GILLS,
+    MUSHROOM_GILL_LINES,
     MUSHROOM_MYCELIUM,
     MUSHROOM_TOP
 };

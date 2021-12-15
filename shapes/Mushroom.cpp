@@ -200,6 +200,13 @@ std::vector<Triangle> Mushroom::getTriangles(int parameter1, int parameter2, int
             if (j == m_topCircles.size()-1) {
                 Triangle gill = Triangle(currentCircle2,glm::vec3(0,0,0),currentCircle1);
                 out.push_back(gill);
+//                Rectangle gillLine = Rectangle(glm::vec3(0,0,0),glm::vec3(1,0,0),glm::vec3(1,1,0),glm::vec3(0,1,0));
+                Rectangle gillLine = Rectangle(currentCircle1+glm::vec3(0,-0.01f,0),currentCircle1+glm::vec3(0.01f,-0.01f,0),glm::vec3(0.01f,-0.01f,0),glm::vec3(0,-0.01f,0));
+                std::vector<Triangle> gillLineTriangles = gillLine.getTriangles();
+                for (int i=0;i<gillLineTriangles.size();i++) {
+                    out.push_back(gillLineTriangles[i]);
+                }
+
             }
         }
     }
@@ -225,7 +232,7 @@ std::vector<Triangle> Mushroom::getTriangles(int parameter1, int parameter2, int
     return out;
 }
 
-std::tuple<std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>> Mushroom::getAll(int parameter1, int parameter2, int parameter3) {
+std::tuple<std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>> Mushroom::getAll(int parameter1, int parameter2, int parameter3) {
     if (parameter2 < 3) {
         parameter2 =10;
     }
@@ -252,7 +259,9 @@ std::tuple<std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>> 
 
     std::vector<Triangle> top;
     std::vector<Triangle> gills;
+    std::vector<Triangle> gillLines;
     std::vector<Triangle> stem;
+
 
     // connect circles of mushroom top
     for (float i=0; i<(2.0f*M_PI); i+=interval) {
@@ -268,6 +277,19 @@ std::tuple<std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>> 
             if (j == m_topCircles.size()-1) {
                 Triangle gill = Triangle(currentCircle2,glm::vec3(0,0,0),currentCircle1);
                 gills.push_back(gill);
+//                Rectangle gillLine = Rectangle(glm::vec3(0,0,0),glm::vec3(1,0,0),glm::vec3(1,1,0),glm::vec3(0,1,0));
+                Rectangle gillLine = Rectangle(currentCircle1+glm::vec3(0,-0.01f,0),currentCircle1+glm::vec3(0.01f,-0.01f,0),glm::vec3(0.01f,-0.01f,0),glm::vec3(0,-0.01f,0));
+                Rectangle gillLine2 = Rectangle(glm::vec3(0,-0.01f,0),glm::vec3(0.01f,-0.01f,0),currentCircle1+glm::vec3(0.01f,-0.01f,0),currentCircle1+glm::vec3(0,-0.01f,0));
+
+                std::vector<Triangle> gillLineTriangles = gillLine.getTriangles();
+                for (int i=0;i<gillLineTriangles.size();i++) {
+                    gillLines.push_back(gillLineTriangles[i]);
+                }
+                std::vector<Triangle> gillLine2Triangles = gillLine2.getTriangles();
+                for (int i=0;i<gillLine2Triangles.size();i++) {
+                    gillLines.push_back(gillLine2Triangles[i]);
+                }
+
             }
         }
     }
@@ -308,7 +330,7 @@ std::tuple<std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>> 
     }
 
 
-    return std::make_tuple(top, gills, stem);
+    return std::make_tuple(top, gills, gillLines, stem);
 }
 
 Mushroom::~Mushroom()
