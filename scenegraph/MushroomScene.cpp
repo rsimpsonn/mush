@@ -32,7 +32,6 @@ MushroomScene::MushroomScene(int width, int height) :
     m_bell = std::make_unique<SuperShroom>(1, 1, 1, MushroomType::MUSHROOM_BELL);
     m_pancake = std::make_unique<SuperShroom>(1, 1, 1, MushroomType::MUSHROOM_PANCAKE);
 
-
     //TODO: [SHAPES] Allocate any additional memory you need...
 
 }
@@ -46,6 +45,8 @@ void MushroomScene::renderPhongPass(SupportCanvas3D *context) {
     if (settings.myceliumView) {
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_ALWAYS);
+    } else {
+        glDepthFunc(GL_LESS);
     }
 
     ShapesScene::renderPhongPass(context);
@@ -54,7 +55,6 @@ void MushroomScene::renderPhongPass(SupportCanvas3D *context) {
 
 void MushroomScene::settingsChanged() {
     // TODO: [SHAPES] Fill this in, for now default to an example shape
-
     m_objects.clear();
     int MAPLENGTH = 20;
     std::vector<float> map(MAPLENGTH * MAPLENGTH, 0);
@@ -81,14 +81,16 @@ void MushroomScene::settingsChanged() {
             if (map[i * MAPLENGTH + j] > 0) {
                 std::vector<GLfloat> mushTop;
                 std::vector<GLfloat> mushGills;
+                std::vector<GLfloat> mushGillLines;
                 std::vector<GLfloat> mushStem;
                 std::vector<GLfloat> myc;
                 glm::mat4 mushT;
-                std::tie(mushTop, mushGills, mushStem, myc, mushT) = m_classic->getBoth(map[i * MAPLENGTH + j], 8, glm::translate(glm::vec3{i - float(MAPLENGTH) / 2, -1.f, -j}));
+                std::tie(mushTop, mushGills, mushGillLines, mushStem, myc, mushT) = m_classic->getBoth(map[i * MAPLENGTH + j], 8, glm::translate(glm::vec3{i - float(MAPLENGTH) / 2, -1.f, -j}), settings.myceliumView);
 
                 ColorScheme color = schemes[arc4random()%schemes.size()];
                 m_objects.push_back(std::make_tuple(mushTop,MushroomSceneType::MUSHROOM_TOP,mushT,color));
                 m_objects.push_back(std::make_tuple(mushGills,MushroomSceneType::MUSHROOM_GILLS,mushT,color));
+                m_objects.push_back(std::make_tuple(mushGillLines,MushroomSceneType::MUSHROOM_GILL_LINES,mushT,color));
                 m_objects.push_back(std::make_tuple(mushStem,MushroomSceneType::MUSHROOM_STEM,mushT,color));
                 m_objects.push_back(std::make_tuple(myc,MushroomSceneType::MUSHROOM_MYCELIUM,glm::mat4(),color));
 
@@ -237,6 +239,16 @@ void MushroomScene::renderGeometry() {
     purpleMyc.cSpecular.r = purpleMyc.cSpecular.g = purpleMyc.cSpecular.b = 1;
     purpleMyc.shininess = 100;
 
+    CS123SceneMaterial white = CS123SceneMaterial();
+    white.clear();
+    white.cAmbient.r = 1.0f;
+    white.cAmbient.g = 1.0f;
+    white.cAmbient.b = 1.0f;
+    white.cDiffuse.r = 1.0f;
+    white.cDiffuse.g = 1.0f;
+    white.cDiffuse.b = 1.0f;
+    white.cSpecular.r = white.cSpecular.g = white.cSpecular.b = 1;
+    white.shininess = 100;
 
     #pragma omp parallel for
     for (int i = 0; i < m_objects.size(); i++) {
@@ -263,6 +275,9 @@ void MushroomScene::renderGeometry() {
                     case MushroomSceneType::MUSHROOM_GILLS:
                         m_phongShader->applyMaterial(pinkGills);
                         break;
+                    case MushroomSceneType::MUSHROOM_GILL_LINES:
+                        m_phongShader->applyMaterial(white);
+                        break;
                 }
                 break;
             case ColorScheme::ORANGE:
@@ -281,6 +296,9 @@ void MushroomScene::renderGeometry() {
                     case MushroomSceneType::MUSHROOM_GILLS:
                         m_phongShader->applyMaterial(orangeGills);
                         break;
+                    case MushroomSceneType::MUSHROOM_GILL_LINES:
+                        m_phongShader->applyMaterial(white);
+                        break;
                 }
                 break;
             case ColorScheme::YELLOW:
@@ -298,6 +316,9 @@ void MushroomScene::renderGeometry() {
                         break;
                     case MushroomSceneType::MUSHROOM_GILLS:
                         m_phongShader->applyMaterial(yellowGills);
+                        break;
+                    case MushroomSceneType::MUSHROOM_GILL_LINES:
+                        m_phongShader->applyMaterial(white);
                         break;
                 }
                 break;

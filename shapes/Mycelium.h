@@ -18,7 +18,7 @@ public:
     ~Mycelium();
 
     void tessellate(int param1, int param2, int param3);
-    std::vector<std::tuple<Triangle,glm::mat4>> getTriangles(int parameter1, int parameter2, int parameter3);
+    std::vector<std::tuple<Triangle,glm::mat4>> getTriangles(int parameter1, int parameter2, int parameter3, bool getTop);
 
 private:
     std::map<const char, std::string> m_species;

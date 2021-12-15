@@ -15,7 +15,7 @@ Mycelium::Mycelium(int param1, int param2, int param3) :
 {
     switch (param3) {
     case 1:
-        m_species = std::map<const char, std::string>{{'F', "FF"}, {'X', "FFF-[-F[-X]-F[-X]][R-FX]+X"}};
+        m_species = std::map<const char, std::string>{{'F', "FF"}, {'X', "FFF-[-F[-X]-F[-X]]+X"}};
         break;
     case 2:
         m_species = std::map<const char, std::string>{{'F', "FF"}, {'X', "FFF---FY"}, {'Y', "FF-[FY]+Y"}};
@@ -90,7 +90,7 @@ void Mycelium::tessellate(int param1, int param2, int param3) {
 
 }
 
-std::vector<std::tuple<Triangle,glm::mat4>> Mycelium::getTriangles(int param1, int param2, int param3) {
+std::vector<std::tuple<Triangle,glm::mat4>> Mycelium::getTriangles(int param1, int param2, int param3, bool getTop) {
     param2 = glm::max(3, param2);
 
 
@@ -99,6 +99,8 @@ std::vector<std::tuple<Triangle,glm::mat4>> Mycelium::getTriangles(int param1, i
     float curr = 0;
 
     for (int i = 0; i < param2; i++) {
+
+        if (getTop) {
             LSystem l = LSystem(param1,
                                 glm::rotate(curr, glm::vec3{0, 1, 0}) * glm::translate(glm::vec3{0.1, 0, 0}),
                                 m_species,
@@ -106,6 +108,7 @@ std::vector<std::tuple<Triangle,glm::mat4>> Mycelium::getTriangles(int param1, i
 
             std::vector<std::tuple<Triangle,glm::mat4>> tris = l.getTriangles(param1);
             out.insert(out.end(), tris.begin(), tris.end());
+        }
 
             LSystem r = LSystem(param1,
                                 glm::rotate(glm::radians(180.f), glm::normalize(glm::vec3{1, 0, 1})) * glm::rotate(curr, glm::vec3{0, 1, 0}) * glm::translate(glm::vec3{0, 0, 0.1}),

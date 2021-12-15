@@ -17,7 +17,7 @@ public:
     SuperShroom();
     void tessellate(int param1, int param2, int param3);
     std::vector<std::tuple<Triangle,glm::mat4>> getTriangles(int param1, int param2, int param3);
-    std::tuple<std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, glm::mat4> getBoth(int param1, int param2, glm::mat4 t);
+    std::tuple<std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, glm::mat4> getBoth(int param1, int param2, glm::mat4 t, bool getTop);
     void runTessellation(std::vector<GLfloat> t);
 
 private:

@@ -12,7 +12,7 @@ public:
     ~Mushroom();
     void tessellate(int param1, int param2, int param3);
     std::vector<Triangle> getTriangles(int parameter1, int parameter2, int parameter3);
-    std::tuple<std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>> getAll(int parameter1, int parameter2, int parameter3);
+    std::tuple<std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>> getAll(int parameter1, int parameter2, int parameter3);
 
 private:
     void makeUmbrellaShroom(int p1, int p2);
