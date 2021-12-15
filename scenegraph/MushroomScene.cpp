@@ -54,6 +54,7 @@ void MushroomScene::renderPhongPass(SupportCanvas3D *context) {
 
 void MushroomScene::settingsChanged() {
     // TODO: [SHAPES] Fill this in, for now default to an example shape
+
     m_objects.clear();
     int MAPLENGTH = 20;
     std::vector<float> map(MAPLENGTH * MAPLENGTH, 0);
@@ -74,6 +75,7 @@ void MushroomScene::settingsChanged() {
         schemes.push_back(ColorScheme::PINK);
     }
     generateMap(settings.maxMushComplexity, settings.numMushrooms, settings.minMushComplexity, 0.2, map);
+    #pragma omp parallel for
     for (int i = 0; i < MAPLENGTH; i++) {
         for (int j = 0; j < MAPLENGTH; j++) {
             if (map[i * MAPLENGTH + j] > 0) {
@@ -235,6 +237,8 @@ void MushroomScene::renderGeometry() {
     purpleMyc.cSpecular.r = purpleMyc.cSpecular.g = purpleMyc.cSpecular.b = 1;
     purpleMyc.shininess = 100;
 
+
+    #pragma omp parallel for
     for (int i = 0; i < m_objects.size(); i++) {
         std::vector<GLfloat> f;
         MushroomSceneType m;
