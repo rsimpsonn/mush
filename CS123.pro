@@ -193,6 +193,7 @@ RESOURCES += \
 DISTFILES += \
     README_Brush.txt \
     README_Filter.txt \
+    README_Mushrooms.txt \
     README_Ray.txt \
     README_Sceneview.txt \
     README_Shapes.txt \
