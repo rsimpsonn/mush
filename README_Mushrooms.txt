@@ -8,6 +8,7 @@ mycelium (kinda like mushroom roots). We then combined the mushroom body and myc
 SuperShroom class so that the upper part of the mycelium is encapsulated in the mushroom top and
 the lower part comes out of the bottom of the mushroom stem. We also created three color schemes which
 each include a different color for each part of the mushroom (top, gills, gill lines, stem, mycelium).
+We create the mushrooms through a MushroomForest, which combines mushrooms of different sizes and colors.
 
 how to use:
 
@@ -22,5 +23,6 @@ body.
 
 known bugs:
 
-We don't have any known bugs, but our program slows down based on the number of mushrooms generated and the
-level of complexity chosen.
+- After complexity 4, the mycelium do not perfectly fit the mushroom bodies
+- For mycelium view, we use the depth test on ALWAYS mode, so the positions of mushrooms get a bit missed up
+- Finally, our program slows down significantly based on the number of mushrooms generated and the level of complexity chosen.
