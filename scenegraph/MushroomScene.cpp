@@ -42,17 +42,37 @@ MushroomScene::~MushroomScene()
     // Pro-tip: If you use smart pointers properly, this destructor should be empty
 }
 
+void MushroomScene::renderPhongPass(SupportCanvas3D *context) {
+    if (settings.myceliumView) {
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_ALWAYS);
+    }
+
+    ShapesScene::renderPhongPass(context);
+}
+
 
 void MushroomScene::settingsChanged() {
     // TODO: [SHAPES] Fill this in, for now default to an example shape
-
-    std::cout << "running again" << std::endl;
     m_objects.clear();
     int MAPLENGTH = 20;
     std::vector<float> map(MAPLENGTH * MAPLENGTH, 0);
 
     std::vector<GLfloat> tessellation;
 
+    std::vector<ColorScheme> schemes;
+    if (settings.pinkEnabled) {
+        schemes.push_back(ColorScheme::PINK);
+    }
+    if (settings.orangeEnabled) {
+        schemes.push_back(ColorScheme::ORANGE);
+    }
+    if (settings.yellowEnabled) {
+        schemes.push_back(ColorScheme::YELLOW);
+    }
+    if (schemes.size() == 0) {
+        schemes.push_back(ColorScheme::PINK);
+    }
     generateMap(settings.maxMushComplexity, settings.numMushrooms, settings.minMushComplexity, 0.2, map);
     for (int i = 0; i < MAPLENGTH; i++) {
         for (int j = 0; j < MAPLENGTH; j++) {
@@ -64,29 +84,11 @@ void MushroomScene::settingsChanged() {
                 glm::mat4 mushT;
                 std::tie(mushTop, mushGills, mushStem, myc, mushT) = m_classic->getBoth(map[i * MAPLENGTH + j], 8, glm::translate(glm::vec3{i - float(MAPLENGTH) / 2, -1.f, -j}));
 
-                int rand = arc4random()%3;
-//                std::cout << rand << std::endl;
-
-                switch (rand) {
-                    case 0:
-                        m_objects.push_back(std::make_tuple(mushTop,MushroomSceneType::MUSHROOM_TOP,mushT,ColorScheme::PINK));
-                        m_objects.push_back(std::make_tuple(mushGills,MushroomSceneType::MUSHROOM_GILLS,mushT,ColorScheme::PINK));
-                        m_objects.push_back(std::make_tuple(mushStem,MushroomSceneType::MUSHROOM_STEM,mushT,ColorScheme::PINK));
-                        m_objects.push_back(std::make_tuple(myc,MushroomSceneType::MUSHROOM_MYCELIUM,glm::mat4(),ColorScheme::PINK));
-                        break;
-                    case 1:
-                        m_objects.push_back(std::make_tuple(mushTop,MushroomSceneType::MUSHROOM_TOP,mushT,ColorScheme::ORANGE));
-                        m_objects.push_back(std::make_tuple(mushGills,MushroomSceneType::MUSHROOM_GILLS,mushT,ColorScheme::ORANGE));
-                        m_objects.push_back(std::make_tuple(mushStem,MushroomSceneType::MUSHROOM_STEM,mushT,ColorScheme::ORANGE));
-                        m_objects.push_back(std::make_tuple(myc,MushroomSceneType::MUSHROOM_MYCELIUM,glm::mat4(),ColorScheme::ORANGE));
-                        break;
-                    case 2:
-                        m_objects.push_back(std::make_tuple(mushTop,MushroomSceneType::MUSHROOM_TOP,mushT,ColorScheme::YELLOW));
-                        m_objects.push_back(std::make_tuple(mushGills,MushroomSceneType::MUSHROOM_GILLS,mushT,ColorScheme::YELLOW));
-                        m_objects.push_back(std::make_tuple(mushStem,MushroomSceneType::MUSHROOM_STEM,mushT,ColorScheme::YELLOW));
-                        m_objects.push_back(std::make_tuple(myc,MushroomSceneType::MUSHROOM_MYCELIUM,glm::mat4(),ColorScheme::YELLOW));
-                        break;
-                }
+                ColorScheme color = schemes[arc4random()%schemes.size()];
+                m_objects.push_back(std::make_tuple(mushTop,MushroomSceneType::MUSHROOM_TOP,mushT,color));
+                m_objects.push_back(std::make_tuple(mushGills,MushroomSceneType::MUSHROOM_GILLS,mushT,color));
+                m_objects.push_back(std::make_tuple(mushStem,MushroomSceneType::MUSHROOM_STEM,mushT,color));
+                m_objects.push_back(std::make_tuple(myc,MushroomSceneType::MUSHROOM_MYCELIUM,glm::mat4(),color));
 
 
             }

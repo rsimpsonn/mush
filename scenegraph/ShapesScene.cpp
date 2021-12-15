@@ -129,6 +129,7 @@ void ShapesScene::render(SupportCanvas3D *context) {
 }
 
 void ShapesScene::renderPhongPass(SupportCanvas3D *context) {
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

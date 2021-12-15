@@ -157,12 +157,13 @@ struct Settings {
 
     // Mushrooms
     int numMushrooms;
-    bool classicEnabled;
-    bool pancakeEnabled;
-    bool bellEnabled;
+    bool orangeEnabled;
+    bool yellowEnabled;
+    bool pinkEnabled;
     int minMushComplexity;
     int maxMushComplexity;
     bool mushroomSceneEnabled;
+    bool myceliumView;
 
     int getSceneMode();
     int getCameraMode();

@@ -5,6 +5,7 @@
 #include "Settings.h"
 #include <iostream>
 #include "CS123SceneData.h"
+#include "glm/ext.hpp"
 
 Mushroom::Mushroom(int parameter1, int parameter2, int mushroomType):
     m_topCircles(std::vector<Circle>()),
@@ -17,8 +18,8 @@ void Mushroom::makeUmbrellaShroom(int p1, int p2) {
     // mushroom top
     float thetaInterval = M_PI/(float)p1;
 
-    for (float i=0; i<=2 * M_PI; i+=thetaInterval) {
-
+    for (int k=0; k<p1; k++) {
+        float i = thetaInterval * float(k);
         float currentTheta = (M_PI/2.0f) - i;
         float newRadius = abs(1.f*cos(currentTheta));
         float yVal = 1.f*sin(currentTheta);
@@ -28,9 +29,11 @@ void Mushroom::makeUmbrellaShroom(int p1, int p2) {
         }
     }
 
-    for (float i=0; i<=1.01; i+=0.1f) {
+    for (int k=0; k<= 10; k++) {
+        float i = float(k)/10.f;
         float newRadius = ((0.3f*-cos(3.75f*i))+1.4f) / 5.f;
         float yVal = -i;
+
         m_stemCircles.push_back(Circle(newRadius, glm::vec3(0,yVal,0), 1));
     }
 
@@ -270,12 +273,30 @@ std::tuple<std::vector<Triangle>, std::vector<Triangle>, std::vector<Triangle>> 
     }
 
     // connect circles of mushroom stem
-    for (float i=0; i<(2.0f*M_PI); i+=interval) {
+    for (int k=0; k<parameter2; k++) {
         for (int j=0; j<m_stemCircles.size(); j++) {
+            float i = float(k) * interval;
+            int prev = (j-1) % m_stemCircles.size();
+
             glm::vec3 currentCircle1 = glm::vec3(m_stemCircles[j].getRadius()*cos(i), m_stemCircles[j].getYVal(), -m_stemCircles[j].getRadius()*sin(i));
+            if (abs(m_stemCircles[j].getRadius()*cos(i)) > 1 || abs(m_stemCircles[j].getYVal()) > 1 || abs(-m_stemCircles[j].getRadius()*sin(i)) > 1) {
+                std::cout << "BUG 1 " << j << " " << i << " " << m_stemCircles[j].getRadius() << std::endl;
+            }
+
             glm::vec3 currentCircle2 = glm::vec3(m_stemCircles[j].getRadius()*cos(i+interval), m_stemCircles[j].getYVal(), -m_stemCircles[j].getRadius()*sin(i+interval));
-            glm::vec3 prevCircle1 = glm::vec3(m_stemCircles[j-1].getRadius()*cos(i), m_stemCircles[j-1].getYVal(), -m_stemCircles[j-1].getRadius()*sin(i));
-            glm::vec3 prevCircle2 = glm::vec3(m_stemCircles[j-1].getRadius()*cos(i+interval), m_stemCircles[j-1].getYVal(), -m_stemCircles[j-1].getRadius()*sin(i+interval));
+            if (abs(m_stemCircles[j].getRadius()*cos(i+interval)) > 1 || abs(m_stemCircles[j].getYVal()) > 1 || abs(-m_stemCircles[j].getRadius()*sin(i+interval)) > 1) {
+                std::cout << "BUG 2 " << j << " " << i << " " << m_stemCircles[j].getRadius() << std::endl;
+            }
+
+            glm::vec3 prevCircle1 = glm::vec3(m_stemCircles[prev].getRadius()*cos(i), m_stemCircles[prev].getYVal(), -m_stemCircles[prev].getRadius()*sin(i));
+            if (abs(m_stemCircles[prev].getRadius()*cos(i)) > 1 || abs(m_stemCircles[j].getYVal()) > 1 || abs(-m_stemCircles[prev].getRadius()*sin(i)) > 1) {
+                std::cout << "BUG 3 " << j << " " << i << " " << m_stemCircles[prev].getRadius() << std::endl;
+            }
+
+            glm::vec3 prevCircle2 = glm::vec3(m_stemCircles[prev].getRadius()*cos(i+interval), m_stemCircles[prev].getYVal(), -m_stemCircles[prev].getRadius()*sin(i+interval));
+            if (abs(m_stemCircles[prev].getRadius()*cos(i+interval)) > 1 || abs(m_stemCircles[j].getYVal()) > 1 || abs(-m_stemCircles[prev].getRadius()*sin(i+interval)) > 1) {
+                std::cout << "BUG 4 " << j << " " << i << " " << m_stemCircles[prev].getRadius() << std::endl;
+            }
             Triangle tri1 = Triangle(currentCircle1,prevCircle1,currentCircle2);
 //            std::vector<glm::vec3> tri1Points = tri1.getCurvedTriangle({glm::vec3(0,-(0.1f*j),0), glm::vec3(0,-(0.1f*j),0), glm::vec3(0,-(0.1f*j),0)});
             stem.push_back(tri1);

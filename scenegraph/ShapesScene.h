@@ -54,6 +54,7 @@ protected:
 
     // Render geometry for Shapes and Sceneview.
     virtual void renderGeometry();
+    virtual void renderPhongPass(SupportCanvas3D *context);
     std::unique_ptr<Shape> m_shape;
     std::unique_ptr<CS123::GL::CS123Shader> m_phongShader;
 
@@ -80,7 +81,6 @@ private:
     void loadWireframeShader();
     void loadNormalsShader();
     void loadNormalsArrowShader();
-    void renderPhongPass(SupportCanvas3D *context);
     void renderGeometryAsFilledPolygons();
     void renderWireframePass(SupportCanvas3D *context);
     void renderGeometryAsWireframe();

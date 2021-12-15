@@ -2052,10 +2052,10 @@
        </font>
       </property>
       <property name="text">
-       <string>Pick your types!</string>
+       <string>Pick your colors!</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="classicEnabled">
+     <widget class="QCheckBox" name="pinkEnabled">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -2065,10 +2065,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>Classic</string>
+       <string>Pink</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="bellEnabled">
+     <widget class="QCheckBox" name="orangeEnabled">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -2078,10 +2078,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>Bell</string>
+       <string>Orange</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="pancakeEnabled">
+     <widget class="QCheckBox" name="yellowEnabled">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -2091,7 +2091,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Pancake</string>
+       <string>Yellow</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="numMushrooms">
@@ -2116,6 +2116,19 @@
      </property>
      <property name="text">
       <string>Enable mushroom forest</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="myceliumView">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>290</y>
+       <width>221</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>See top mycelium</string>
      </property>
     </widget>
    </widget>

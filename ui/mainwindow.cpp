@@ -239,11 +239,12 @@ void MainWindow::dataBind() {
     // mushrooms
     BIND(BoolBinding::bindCheckbox(ui->mushroomSceneEnabled, settings.mushroomSceneEnabled))
     BIND(IntBinding::bindTextbox(ui->numMushrooms, settings.numMushrooms))
-    BIND(BoolBinding::bindCheckbox(ui->classicEnabled, settings.classicEnabled))
-    BIND(BoolBinding::bindCheckbox(ui->bellEnabled, settings.bellEnabled))
-    BIND(BoolBinding::bindCheckbox(ui->pancakeEnabled, settings.pancakeEnabled))
+    BIND(BoolBinding::bindCheckbox(ui->pinkEnabled, settings.pinkEnabled))
+    BIND(BoolBinding::bindCheckbox(ui->orangeEnabled, settings.orangeEnabled))
+    BIND(BoolBinding::bindCheckbox(ui->yellowEnabled, settings.yellowEnabled))
     BIND(IntBinding::bindTextbox(ui->minMushComplexity, settings.minMushComplexity))
     BIND(IntBinding::bindTextbox(ui->maxMushComplexity, settings.maxMushComplexity))
+    BIND(BoolBinding::bindCheckbox(ui->myceliumView, settings.myceliumView));
 
     BIND(ChoiceBinding::bindTabs(ui->tabWidget, settings.currentTab))
 

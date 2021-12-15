@@ -56,7 +56,8 @@ std::tuple<std::vector<GLfloat>, std::vector<GLfloat>, std::vector<GLfloat>, std
     std::vector<GLfloat> mushGillsTessellation;
     std::vector<GLfloat> mushStemTessellation;
     std::vector<GLfloat> mycTessellation;
-    glm::mat4 mushTransformation = transl * glm::translate(glm::vec3{0, pow(2,param1 - 1), 0}) * glm::scale(glm::vec3{pow(2,param1 - 1), pow(2,param1 - 1),pow(2,param1 - 1)});
+    float f = 3802794 + (1.11753 - 3802794)/(1 + (pow(float(param1)/141.2069, 3.71)));
+    glm::mat4 mushTransformation = transl * glm::translate(glm::vec3{0, f, 0}) * glm::scale(glm::vec3{f, f,f});
 
     for (int i = 0; i < top.size(); i++) {
         top[i].addToVector(&mushTopTessellation, mushTransformation);

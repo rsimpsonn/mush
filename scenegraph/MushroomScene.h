@@ -39,6 +39,8 @@ public:
 
     virtual void settingsChanged() override;
     virtual void renderGeometry() override;
+    virtual void renderPhongPass(SupportCanvas3D *context) override;
+
 private:
     std::unique_ptr<SuperShroom> m_classic;
     std::unique_ptr<SuperShroom> m_bell;

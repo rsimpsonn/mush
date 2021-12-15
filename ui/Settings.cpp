@@ -75,11 +75,12 @@ void Settings::loadSettingsOrDefaults() {
     // Mushroom
     mushroomSceneEnabled = s.value("mushroomSceneENabled", false).toBool();
     numMushrooms = s.value("numMushrooms", 1).toInt();
-    classicEnabled = s.value("classicEnabled", true).toBool();
-    pancakeEnabled = s.value("pancakeEnabled", false).toBool();
-    bellEnabled = s.value("bellEnabled", false).toBool();
+    orangeEnabled = s.value("orangeEnabled", true).toBool();
+    yellowEnabled = s.value("yellowEnabled", true).toBool();
+    pinkEnabled = s.value("pinkEnabled", true).toBool();
     minMushComplexity = s.value("minMushComplexity", 1).toInt();
     maxMushComplexity = s.value("maxMushComplexity", 2).toInt();
+    myceliumView = s.value("myceliumView",false).toBool();
 
     currentTab = s.value("currentTab", TAB_2D).toBool();
 
@@ -143,9 +144,9 @@ void Settings::saveSettings() {
 
     // Mushroom
     s.setValue("numMushrooms", numMushrooms);
-    s.setValue("classicEnabled", classicEnabled);
-    s.setValue("bellEnabled", bellEnabled);
-    s.setValue("pancakeEnabled", pancakeEnabled);
+    s.setValue("orangeEnabled", orangeEnabled);
+    s.setValue("pinkEnabled", pinkEnabled);
+    s.setValue("yellowEnabled", yellowEnabled);
     s.setValue("maxMushComplexity", maxMushComplexity);
     s.setValue("minMushComplexity", minMushComplexity);
     s.setValue("mushroomSceneEnabled", mushroomSceneEnabled);
